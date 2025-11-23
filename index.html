@@ -886,7 +886,7 @@
                             {localizedProjects.map((art) => (
                                 <div key={art.id} className="group flex flex-col bg-slate-800 rounded-xl overflow-hidden shadow-lg border border-slate-700 hover:border-[var(--primary)]/50 transition-all duration-300">
                                     <div className="aspect-[4/5] overflow-hidden bg-slate-900 relative">
-                                        <img src={art.img} alt={art.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" loading="lazy" />
+                                        <img src={art.img} alt={art.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
                                         <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                             <a href={art.img} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-white font-semibold border border-white/30 px-4 py-2 rounded-full backdrop-blur-sm hover:bg-white/20 transition-colors cursor-zoom-in"><ZoomIn size={18} /> Ampliar</a>
@@ -1324,8 +1324,8 @@
                                 </AnimatedSection>
                                 <div className="max-w-3xl mx-auto space-y-8">
                                     <div className="grid md:grid-cols-2 gap-6">
-                                        <AnimatedSection delay={200} animationType="slide-right"><img src={`https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0f172a&icon_color=8b5cf6&title_color=f8fafc&text_color=94a3b8`} alt="GitHub Stats" className="w-full rounded-xl shadow-2xl border border-slate-700 hover:border-purple-500/50 transition-all duration-300" loading="lazy" /></AnimatedSection>
-                                        <AnimatedSection delay={400} animationType="fade-up"><img src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&theme=tokyonight&hide_border=true&bg_color=0f172a&title_color=f8fafc&text_color=94a3b8`} alt="Top Languages" className="w-full rounded-xl shadow-2xl border border-slate-700 hover:border-purple-500/50 transition-all duration-300" loading="lazy" /></AnimatedSection>
+                                        <AnimatedSection delay={200} animationType="slide-right"><img src={`https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0f172a&icon_color=8b5cf6&title_color=f8fafc&text_color=94a3b8`} alt="GitHub Stats" className="w-full rounded-xl shadow-2xl border border-slate-700 hover:border-purple-500/50 transition-all duration-300" /></AnimatedSection>
+                                        <AnimatedSection delay={400} animationType="fade-up"><img src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&theme=tokyonight&hide_border=true&bg_color=0f172a&title_color=f8fafc&text_color=94a3b8`} alt="Top Languages" className="w-full rounded-xl shadow-2xl border border-slate-700 hover:border-purple-500/50 transition-all duration-300" /></AnimatedSection>
                                     </div>
                                     {/* Substituído Streak Stats (Instável) por GitHub Trophies (Mais estável e visual) */}
                                     <AnimatedSection delay={500} animationType="scale-up">
@@ -1334,7 +1334,6 @@
                                                 src={`https://github-profile-trophy.vercel.app/?username=${GITHUB_USERNAME}&theme=tokyonight&no-frame=true&no-bg=true&margin-w=4`} 
                                                 alt="GitHub Trophies" 
                                                 className="max-w-full h-auto" 
-                                                loading="lazy" 
                                             />
                                         </div>
                                     </AnimatedSection>
