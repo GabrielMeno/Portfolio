@@ -261,7 +261,7 @@
                         { title: "Informativo Fiscal & Vendas", cat: "Marketing Corporativo", desc: "Material gráfico informativo sobre atualizações na legislação fiscal e divulgação de soluções em sistemas de gestão." },
                         { title: "Campanha de Natal", cat: "Social Media • Top Duo", desc: "Arte institucional para celebração natalina, focada em engajamento e relacionamento com a base de clientes." },
                         { title: "Identidade Visual Streaming", cat: "Branding Pessoal", desc: "Projeto autoral de identidade visual desenvolvido para canal de transmissões ao vivo (Twitch)." },
-                        { title: "Design para Brindes Escolares", cat: "Design Impresso", desc: "Criação de arte para personalização de item comemorativo (utensílio de cozinha) distribuído no Dia da Família escolar." },
+                        { title: "School Gifts Design", cat: "Design Impresso", desc: "Criação de arte para personalização de item comemorativo (utensílio de cozinha) distribuído no Dia da Família escolar." },
                         { title: "Conceito de Logotipo Pessoal", cat: "Visual Identity (WIP)", desc: "Estudo preliminar e processo criativo para desenvolvimento da minha própria marca pessoal e identidade visual." }
                     ],
                     wip: "Novos projetos em desenvolvimento..."
@@ -461,7 +461,7 @@
                         },
                         {
                             heading: "4. Advanced UX Features",
-                            content: "• Internationalization (i18n): Object dictionary system for dynamic switching between Portuguese (PT-BR) and English (EN-US).\n• Dark Mode: Theme persistence via LocalStorage and system preference detection (prefers-color-scheme).\n• Command Palette: Keyboard-accessible navigation interface (shortcut Ctrl+K), implemented with focus and real-time array filtering.\n• Accessibility (a11y): Use of ARIA attributes, semantic tags, and keyboard navigation."
+                            content: "• Internationalization (i18n): Object dictionary system for dynamic switching between Português (PT-BR) and English (EN-US).\n• Dark Mode: Theme persistence via LocalStorage and system preference detection (prefers-color-scheme).\n• Command Palette: Keyboard-accessible navigation interface (shortcut Ctrl+K), implemented with focus and real-time array filtering.\n• Acessibilidade (a11y): Use of ARIA attributes, semantic tags, and keyboard navigation."
                         },
                         {
                             heading: "5. Directory and Component Structure",
@@ -1142,20 +1142,41 @@
                                         <button onClick={() => setIsGalleryOpen(true)} className="px-4 py-2 text-white text-xs font-bold uppercase tracking-wider rounded-md transition-all flex items-center gap-2 shadow-lg hover:brightness-110" style={{ backgroundColor: 'var(--primary)' }}><Palette size={14} /> {t.nav.portfolio}</button>
                                     </div>
                                 </div>
-                                <button className="md:hidden text-slate-800 dark:text-white focus:outline-none" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Menu Mobile"><X size={28} /></button>
+                                <button className="md:hidden text-slate-800 dark:text-white focus:outline-none" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Menu Mobile"><Menu size={28} /></button>
                             </div>
-                            <div className={`fixed inset-y-0 right-0 w-64 bg-white dark:bg-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out z-50 md:hidden flex flex-col pt-20 pl-8 space-y-6 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                                <button onClick={() => setIsMenuOpen(false)} className="absolute top-6 right-6 text-slate-500 dark:text-slate-400 hover:text-red-500"><X size={24} /></button>
-                                {['Sobre', 'Docs', 'Skills', 'Experiência', 'Contato'].map((item) => (<button key={item} onClick={() => handleNavClick(item === 'Docs' ? 'docs' : item.toLowerCase().replace('ê', 'e').replace('ç', 'c'))} className="text-left text-lg font-semibold text-slate-700 dark:text-slate-200 hover:pl-2 transition-all" style={{ color: 'var(--primary)' }}>{t.nav[item === 'Sobre' ? 'about' : item === 'Docs' ? 'docs' : item === 'Skills' ? 'skills' : item === 'Experiência' ? 'experience' : 'contact']}</button>))}
-                                <hr className="border-slate-200 dark:border-slate-700" />
+
+                            {/* Overlay Escuro para o Menu Mobile (Adicionado para foco e fechar ao clicar fora) */}
+                            <div 
+                                className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[190] md:hidden transition-opacity duration-300 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} 
+                                onClick={() => setIsMenuOpen(false)}
+                            />
+
+                            {/* Menu Mobile Sidebar (Corrigido background e z-index) */}
+                            <div className={`fixed inset-y-0 right-0 w-72 bg-white dark:bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out z-[200] md:hidden flex flex-col pt-20 pl-8 space-y-6 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} border-l border-slate-200 dark:border-slate-800`}>
+                                <button onClick={() => setIsMenuOpen(false)} className="absolute top-6 right-6 text-slate-500 dark:text-slate-400 hover:text-red-500 bg-slate-100 dark:bg-slate-800 p-2 rounded-full transition-colors"><X size={24} /></button>
+                                {/* Mapeamento corrigido para incluir 'docs' e navegação simplificada */}
+                                {['about', 'docs', 'skills', 'experience', 'contact'].map((key) => {
+                                    const navItem = t.nav[key];
+                                    return (
+                                        <button 
+                                            key={key} 
+                                            onClick={() => handleNavClick(key)} 
+                                            className="text-left text-lg font-bold text-slate-700 dark:text-slate-200 hover:pl-2 transition-all flex items-center gap-2" 
+                                            style={{ color: 'var(--primary)' }}
+                                        >
+                                            {key === 'docs' ? <Download size={18} /> : (key === 'about' ? <UserCheck size={18} /> : (key === 'skills' ? <Code size={18} /> : (key === 'experience' ? <Briefcase size={18} /> : <Mail size={18} />)))}
+                                            {navItem}
+                                        </button>
+                                    );
+                                })}
+                                <hr className="border-slate-200 dark:border-slate-700 w-5/6" />
                                 <div className="flex gap-4">
-                                    <button onClick={toggleTheme} className="p-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">{isDarkMode ? <Sun size={20} /> : <Moon size={20} />}</button>
-                                    <button onClick={generateRandomColor} className="p-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200"><Wand2 size={20} /></button>
-                                    <button onClick={toggleLanguage} className="p-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold">{language === 'pt' ? 'EN' : 'PT'}</button>
-                                    <button onClick={handleShare} className="p-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200"><Share2 size={20} /></button>
+                                    <button onClick={toggleTheme} className="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">{isDarkMode ? <Sun size={20} /> : <Moon size={20} />}</button>
+                                    <button onClick={generateRandomColor} className="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"><Wand2 size={20} /></button>
+                                    <button onClick={toggleLanguage} className="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">{language === 'pt' ? 'EN' : 'PT'}</button>
+                                    <button onClick={handleShare} className="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"><Share2 size={20} /></button>
                                 </div>
-                                <button onClick={() => { setIsMenuOpen(false); setIsGalleryOpen(true); }} className="text-left text-lg font-bold hover:pl-2 transition-all flex items-center gap-2" style={{ color: 'var(--primary)' }}><Palette size={20} /> {t.nav.portfolio}</button>
-                                <button onClick={() => { setIsMenuOpen(false); window.open(DOCS_URL, '_blank'); }} className="text-left text-lg font-bold hover:pl-2 transition-all flex items-center gap-2 mt-4 text-slate-500" style={{ color: 'var(--primary)' }}><Book size={20} /> {t.nav.docs}</button>
+                                <button onClick={() => { setIsMenuOpen(false); setIsGalleryOpen(true); }} className="text-left text-lg font-bold hover:pl-2 transition-all flex items-center gap-2 mt-2" style={{ color: 'var(--primary)' }}><Palette size={20} /> {t.nav.portfolio}</button>
                             </div>
                         </header>
 
@@ -1173,7 +1194,7 @@
                                         <div className="h-8 mb-6"><p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 font-mono">{text}<span className="animate-blink">|</span></p></div>
                                         <p className="text-slate-600 dark:text-slate-300 mb-8 max-w-lg mx-auto md:mx-0 leading-relaxed">{t.hero.description}</p>
                                         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                            <button onClick={() => handleNavClick('contato')} className="px-8 py-3 text-white font-semibold rounded-lg shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 group" style={{ backgroundColor: 'var(--primary)' }}>{t.hero.cta_contact} <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></button>
+                                            <button onClick={() => handleNavClick('contact')} className="px-8 py-3 text-white font-semibold rounded-lg shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 group" style={{ backgroundColor: 'var(--primary)' }}>{t.hero.cta_contact} <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></button>
                                             <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="px-8 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-white font-semibold rounded-lg shadow-md border border-slate-200 dark:border-slate-700 hover:brightness-95 transition-all duration-300 flex items-center justify-center gap-2 group"><Download size={18} className="group-hover:text-[var(--primary)] transition-colors" /> {t.nav.download_cv}</a>
                                         </div>
                                         <div className="mt-6 text-xs text-slate-400 dark:text-slate-500 flex items-center gap-2 justify-center md:justify-start"><Command size={12} /><span>{t.hero.command_hint} <span className="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded border border-slate-200 dark:border-slate-700">Ctrl + K</span> {t.hero.command_text}</span></div>
